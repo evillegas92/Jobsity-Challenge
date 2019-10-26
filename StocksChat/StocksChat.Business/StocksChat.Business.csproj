@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Interfaces\Services\" />
+    <Folder Include="Models\" />
+    <Folder Include="MappingProfiles\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+</Project>
