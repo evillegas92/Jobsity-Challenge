@@ -1,18 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using StocksChat.Business.Interfaces.Services;
+using StocksChat.Business.MappingProfiles;
+using StocksChat.Business.Services;
 using StocksChat.Persistence;
+using StocksChat.Persistence.Brokers;
 using StocksChat.Persistence.Contexts;
 using StocksChat.Persistence.Entities;
+using StocksChat.Persistence.Interfaces.Brokers;
 
 namespace StocksChat.Web
 {
@@ -38,7 +39,12 @@ namespace StocksChat.Web
                     assembly => assembly.MigrationsAssembly(typeof(StocksChatContext).Assembly.FullName));
             });
 
+            services.AddScoped<IMessagesBroker, MessagesBroker>();
+
             services.AddTransient<Seeder>();
+            services.AddTransient<IMessagesService, MessagesService>();
+
+            services.AddAutoMapper(typeof(MappingProfile));
 
             services.AddControllersWithViews();
         }
