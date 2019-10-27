@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StocksChat.Business", "Stoc
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{BE2F3CC4-8B79-4009-A2AE-B6DE67297A12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StocksChat.Web", "StocksChat.Web\StocksChat.Web.csproj", "{88C804EE-8EC8-45F8-80BD-4DA0916166CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StocksChat.Web", "StocksChat.Web\StocksChat.Web.csproj", "{88C804EE-8EC8-45F8-80BD-4DA0916166CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StocksChat.Bot", "StocksChat.Bot\StocksChat.Bot.csproj", "{D17F7FEC-08A5-4ED4-86EE-77094094D6D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{88C804EE-8EC8-45F8-80BD-4DA0916166CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88C804EE-8EC8-45F8-80BD-4DA0916166CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88C804EE-8EC8-45F8-80BD-4DA0916166CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D17F7FEC-08A5-4ED4-86EE-77094094D6D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D17F7FEC-08A5-4ED4-86EE-77094094D6D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D17F7FEC-08A5-4ED4-86EE-77094094D6D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D17F7FEC-08A5-4ED4-86EE-77094094D6D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
