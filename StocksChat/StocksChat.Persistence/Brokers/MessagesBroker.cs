@@ -20,5 +20,14 @@ namespace StocksChat.Persistence.Brokers
         {
             return await _dbContext.Messages.ToListAsync();
         }
+
+        public async Task<MessageEntity> AddMessage(MessageEntity message)
+        {
+            _dbContext.Add(message);
+            int result = await _dbContext.SaveChangesAsync();
+            if (result > 0)
+                return message;
+            return null;
+        }
     }
 }

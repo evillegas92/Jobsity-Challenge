@@ -1,14 +1,39 @@
-﻿@model IEnumerable<StocksChat.Business.Models.Message>
+﻿
 @{
     ViewData["Title"] = "Home Page";
 }
+@section Scripts{
+    <script src="~/js/signalr/dist/browser/signalr.min.js"></script>
+    <script src="~/js/chat.js"></script>
+}
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to StocksChat!</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="form-group">
+            <label>Username</label>
+            <span id="userInput" class="form-control">@ViewBag.Username</span>
+        </div>
+        <div class="form-group">
+            <label>Message</label>
+            <textarea class="form-control" id="messageInput" rows="7"></textarea>
+        </div>
+        <div class="form-group">
+            <input type="button" id="sendButton" value="Send Message" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group col-12">
+        <hr />
+    </div>
 </div>
 <div class="row">
-    <div class="col-md-9">
-        <p>Number of messages: @Model.Count() </p>
+    <div class="col-md-6 offset-md-3">
+        <ul id="messagesList"></ul>
     </div>
 </div>

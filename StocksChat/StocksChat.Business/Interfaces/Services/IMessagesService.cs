@@ -9,5 +9,7 @@ namespace StocksChat.Business.Interfaces.Services
     public interface IMessagesService
     {
         Task<IEnumerable<Message>> GetAllMessages();
+
+        Task<Message> SaveMessage(string username, string message);
     }
 }

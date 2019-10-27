@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using StocksChat.Business.Interfaces.Services;
@@ -11,11 +12,13 @@ namespace StocksChat.Business.Services
     public class MessagesService : IMessagesService
     {
         private readonly IMessagesBroker _messagesBroker;
+        private readonly IUsersBroker _usersBroker;
         private readonly IMapper _mapper;
 
-        public MessagesService(IMessagesBroker messagesBroker, IMapper mapper)
+        public MessagesService(IMessagesBroker messagesBroker, IMapper mapper, IUsersBroker usersBroker)
         {
             _messagesBroker = messagesBroker;
+            _usersBroker = usersBroker;
             _mapper = mapper;
         }
 
@@ -23,6 +26,25 @@ namespace StocksChat.Business.Services
         {
             IEnumerable<MessageEntity> messageEntities = await _messagesBroker.GetAllMessages();
             return _mapper.Map<IEnumerable<Message>>(messageEntities);
+        }
+
+        public async Task<Message> SaveMessage(string username, string message)
+        {
+            if (message.StartsWith("/"))
+            {
+                //TODO: handle command
+                return null;
+            }
+
+            Message newMessage = new Message
+            {
+                Text = message,
+                When = DateTime.UtcNow
+            };
+            MessageEntity messageEntity = _mapper.Map<MessageEntity>(newMessage);
+            messageEntity.User = await _usersBroker.GetUserByUsername(username);
+            messageEntity = await _messagesBroker.AddMessage(messageEntity);
+            return _mapper.Map<Message>(messageEntity);
         }
     }
 }

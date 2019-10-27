@@ -14,6 +14,7 @@ using StocksChat.Persistence.Brokers;
 using StocksChat.Persistence.Contexts;
 using StocksChat.Persistence.Entities;
 using StocksChat.Persistence.Interfaces.Brokers;
+using StocksChat.Web.Hubs;
 
 namespace StocksChat.Web
 {
@@ -40,6 +41,7 @@ namespace StocksChat.Web
             });
 
             services.AddScoped<IMessagesBroker, MessagesBroker>();
+            services.AddScoped<IUsersBroker, UsersBroker>();
 
             services.AddTransient<Seeder>();
             services.AddTransient<IMessagesService, MessagesService>();
@@ -47,6 +49,8 @@ namespace StocksChat.Web
             services.AddAutoMapper(typeof(MappingProfile));
 
             services.AddControllersWithViews();
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,6 +80,7 @@ namespace StocksChat.Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHub<ChatHub>("/chatHub");
             });
         }
     }

@@ -21,5 +21,10 @@ namespace StocksChat.Persistence.Brokers
             List<AppUserEntity> users = await _userManager.Users.ToListAsync();
             return users;
         }
+
+        public async Task<AppUserEntity> GetUserByUsername(string username)
+        {
+            return await _userManager.FindByNameAsync(username);
+        }
     }
 }

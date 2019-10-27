@@ -7,5 +7,7 @@ namespace StocksChat.Persistence.Interfaces.Brokers
     public interface IUsersBroker
     {
         Task<IEnumerable<AppUserEntity>> GetUsers();
+
+        Task<AppUserEntity> GetUserByUsername(string username);
     }
 }
