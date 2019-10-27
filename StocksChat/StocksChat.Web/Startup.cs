@@ -14,6 +14,7 @@ using StocksChat.Persistence.Brokers;
 using StocksChat.Persistence.Contexts;
 using StocksChat.Persistence.Entities;
 using StocksChat.Persistence.Interfaces.Brokers;
+using StocksChat.Web.HostedServices;
 using StocksChat.Web.Hubs;
 
 namespace StocksChat.Web
@@ -51,6 +52,8 @@ namespace StocksChat.Web
             services.AddControllersWithViews();
 
             services.AddSignalR();
+
+            services.AddHostedService<BotsRpcHostedService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

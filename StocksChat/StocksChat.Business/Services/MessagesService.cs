@@ -30,12 +30,6 @@ namespace StocksChat.Business.Services
 
         public async Task<Message> SaveMessage(string username, string message)
         {
-            if (message.StartsWith("/"))
-            {
-                //TODO: handle command
-                return null;
-            }
-
             Message newMessage = new Message
             {
                 Text = message,

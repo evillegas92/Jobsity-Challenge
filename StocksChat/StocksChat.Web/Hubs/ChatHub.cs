@@ -15,8 +15,15 @@ namespace StocksChat.Web.Hubs
 
         public async Task SendMessage(string user, string message)
         {
+            if (string.IsNullOrWhiteSpace(message))
+                return;
+
             await Clients.All.SendAsync("ReceiveMessage", user, message);
-            await _messagesService.SaveMessage(user, message);
+
+            if (!message.StartsWith("/"))
+            {
+                await _messagesService.SaveMessage(user, message);
+            }
         }
     }
 }
