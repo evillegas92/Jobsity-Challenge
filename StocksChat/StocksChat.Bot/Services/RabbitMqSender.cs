@@ -13,6 +13,7 @@ namespace StocksChat.Bot.Services
     {
         public void SendMessage(object payload)
         {
+            //Ideally we would have exchange and queues configured in the config file and retrieve them here
             var factory = new ConnectionFactory { HostName = "localhost" };
             using(var connection = factory.CreateConnection())
             using(var channel = connection.CreateModel())

@@ -8,7 +8,7 @@ using StocksChat.Bot.Services;
 
 namespace StocksChat.Bot
 {
-    public class Worker : IHostedService, IDisposable
+    public class Worker : IHostedService
     {
         private readonly ILogger<Worker> _logger;
         private readonly IStockQuotesService _stockQuotesService;
@@ -71,15 +71,8 @@ namespace StocksChat.Bot
                 
                 //tell RabbitMQ to publish the result
                 _rabbitMqSender.SendMessage(result);
-                _logger.LogInformation($"Worker sent result: {result} to RabbitMQ");
+                _logger.LogInformation($"Worker sent result: {result} to RabbitMQ.");
             }
-        }
-
-        /// <summary>
-        /// Dispose Timer
-        /// </summary>
-        public void Dispose()
-        {
         }
     }
 }

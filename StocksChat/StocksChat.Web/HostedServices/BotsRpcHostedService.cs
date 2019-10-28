@@ -21,6 +21,7 @@ namespace StocksChat.Web.HostedServices
         {
             _hubContext = hubContext;
             
+            //Ideally we would have exchange and queues configured in the config file and retrieve them here
             var factory = new ConnectionFactory { HostName = "localhost" };
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();

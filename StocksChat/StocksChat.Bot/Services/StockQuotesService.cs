@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
+using CsvHelper;
+using StocksChat.Bot.Models;
 
 namespace StocksChat.Bot.Services
 {
@@ -17,23 +20,27 @@ namespace StocksChat.Bot.Services
 
         public async Task<string> GetStockQuote(string stockId)
         {
-            string response = string.Empty;
+            string stringValue;
             string uri = $"?s={stockId}&f=sd2t2ohlcv&h&e=csv";
             var message = new HttpRequestMessage(HttpMethod.Get, uri);
             var result = await _client.SendAsync(message);
             if (result.IsSuccessStatusCode)
             {
-                //var reason = await result.Content.ReadAsJsonAsync<ReasonModel>();
-
-                response = "APPL.US quote is $93.42 per share.";
+                using (var reader = new StreamReader(await result.Content.ReadAsStreamAsync()))
+                using(var csvHelper = new CsvReader(reader))
+                {
+                    IEnumerable<StockQuote> stockQuotes = csvHelper.GetRecords<StockQuote>();
+                    stringValue = stockQuotes.FirstOrDefault()?.Open.ToString("C") ?? string.Empty;
+                }
             }
             else
             {
-                response = $"Error retrieving stock data for {stockId}.";
+                return $"Error retrieving stock data for {stockId}.";
             }
             message.Dispose();
             result.Dispose();
-            return response;
+
+            return string.IsNullOrWhiteSpace(stringValue) ? $"Error retrieving stock data for {stockId}." : $"{stockId.ToUpper()} quote is {stringValue} per share.";
         }
     }
 }
