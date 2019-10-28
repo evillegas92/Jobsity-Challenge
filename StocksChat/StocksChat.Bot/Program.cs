@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using StocksChat.Bot.Services;
 
 namespace StocksChat.Bot
 {
@@ -18,6 +15,8 @@ namespace StocksChat.Bot
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
+                    services.AddTransient<IStockQuotesService, StockQuotesService>();
+                    services.AddSingleton<IRabbitMqSender, RabbitMqSender>();
                     services.AddHostedService<Worker>();
                 });
     }

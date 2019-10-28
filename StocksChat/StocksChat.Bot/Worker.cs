@@ -1,22 +1,25 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using StocksChat.Bot.Services;
 
 namespace StocksChat.Bot
 {
     public class Worker : IHostedService, IDisposable
     {
         private readonly ILogger<Worker> _logger;
+        private readonly IStockQuotesService _stockQuotesService;
+        private readonly IRabbitMqSender _rabbitMqSender;
         private HubConnection _signalRHubConnection;
 
-        public Worker(ILogger<Worker> logger)
+        public Worker(ILogger<Worker> logger, IStockQuotesService stockQuotesService, IRabbitMqSender rabbitMqSender)
         {
             _logger = logger;
+            _stockQuotesService = stockQuotesService;
+            _rabbitMqSender = rabbitMqSender;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -56,10 +59,20 @@ namespace StocksChat.Bot
         {
             if (!message.StartsWith("/") || !message.Contains("="))
                 return;
-            string command = message.Split('=')[0].Replace("/", string.Empty);
+            string command = message.Split('=')[0].Replace("/", string.Empty).ToLower();
             string commandParameter = message.Split('=')[1];
-            //ready to queue message to RabbitMQ
+
             _logger.LogInformation($"Worker received command: {command}={commandParameter}");
+
+            if (command == "stock")
+            {
+                //replace with a better way to dynamically spin up service implementations to bot command registrations (i.e. fetch list of registered bots, use reflection to create an instance of that class and call DoWork on it - where DoWork is a method in the interface all bots must implement)
+                var result = await _stockQuotesService.GetStockQuote(commandParameter);
+                
+                //tell RabbitMQ to publish the result
+                _rabbitMqSender.SendMessage(result);
+                _logger.LogInformation($"Worker sent result: {result} to RabbitMQ");
+            }
         }
 
         /// <summary>
