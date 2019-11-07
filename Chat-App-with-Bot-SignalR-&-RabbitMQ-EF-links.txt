@@ -1,0 +1,14 @@
+Setup EntityFramework and create database:
+- https://dotnetthoughts.net/using-ef-core-in-a-separate-class-library/
+- https://medium.com/oppr/net-core-using-entity-framework-core-in-a-separate-project-e8636f9dc9e5
+
+Get started with SignalR: https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr?view=aspnetcore-3.0&tabs=visual-studio
+Get started with SignalR (Webpack & TypeScript version): https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr-typescript-webpack?view=aspnetcore-3.0&tabs=visual-studio
+SignalR client .net core: https://docs.microsoft.com/en-us/aspnet/core/signalr/dotnet-client?view=aspnetcore-3.0&tabs=visual-studio
+
+Independent background service that can send messages into the hub: https://www.blexin.com/en-US/Article/Blog/Real-time-applications-with-SignalR-ASPNET-Core-and-Angular-46
+
+Create a Worker Process (with DI): https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-3.0&tabs=visual-studio
+
+RabbitMQ tutorial for .Net Core: https://www.rabbitmq.com/tutorials/tutorial-one-dotnet.html
+RabbitMQ in .net core Hosted Service: https://developpaper.com/the-correct-way-to-use-rabbitmq-in-net-core/
